@@ -44,24 +44,24 @@
 			else if (typeof options === 'string' && '_' !== options[0] && 'init' !== options) {
 				var returns;
 
-	            this.each(function () {
-	                var instance = $.data(this, 'plugin_' + pluginName);
+				this.each(function () {
+			                var instance = $.data(this, 'plugin_' + pluginName);
+		
+			                // Checking if any instance already exists.
+			                if (instance instanceof Pane && typeof instance[options] === 'function') {
+		
+			                    // Calling instance's method.
+			                    returns = instance[options].apply( instance, Array.prototype.slice.call( args, 1 ) );
+			                }
+		
+			                // "destroy" method destroys the instance.
+			                if (options === 'destroy') {
+			                  $.data(this, 'plugin_' + pluginName, null);
+			                }
+				});
 
-	                // Checking if any instance already exists.
-	                if (instance instanceof Pane && typeof instance[options] === 'function') {
-
-	                    // Calling instance's method.
-	                    returns = instance[options].apply( instance, Array.prototype.slice.call( args, 1 ) );
-	                }
-
-	                // "destroy" method destroys the instance.
-	                if (options === 'destroy') {
-	                  $.data(this, 'plugin_' + pluginName, null);
-	                }
-	            });
-
-	            // For chainability, returning "this" if no returned value.
-	            return returns !== undefined ? returns : this;
+	            		// For chainability, returning "this" if no returned value.
+	            		return returns !== undefined ? returns : this;
 			}
 		};
 })(jQuery, window, document);
