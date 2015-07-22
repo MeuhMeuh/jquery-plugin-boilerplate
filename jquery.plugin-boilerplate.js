@@ -21,7 +21,7 @@
 
 		// Business functions declaration.
 		$.extend(Pane.prototype, {
-				// Initialisation du plugin sur l'élément.
+				// Plugin initialization
 				init: function () {
 					// dostuff
 				},
